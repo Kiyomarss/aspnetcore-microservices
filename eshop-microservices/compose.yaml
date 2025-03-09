@@ -1,0 +1,12 @@
+﻿services:
+  ordering.api:
+    image: ordering.api
+    build:
+      context: .
+      dockerfile: Ordering.API/Dockerfile
+
+  ordering.api-1:
+    image: ordering.api-1
+    build:
+      context: .
+      dockerfile: Ordering.API/Dockerfile
