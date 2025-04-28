@@ -23,4 +23,17 @@ public class BasketRepository(IDocumentSession session)
         await session.SaveChangesAsync(cancellationToken);
         return true;
     }
+
+    public async Task RemoveItemFromBasket(string userName, Guid productId, CancellationToken cancellationToken = default)
+    {
+        var basket = await session.LoadAsync<ShoppingCart>(userName, cancellationToken);
+
+        if (basket is null)
+            throw new Exception("Basket not found");
+
+        basket.Items.RemoveAll(item => item.ProductId == productId);
+
+        session.Store(basket);
+        await session.SaveChangesAsync(cancellationToken);
+    }
 }
